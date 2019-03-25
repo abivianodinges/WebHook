@@ -1,0 +1,25 @@
+int photosensor = A0; 
+
+int analogvalue; 
+
+
+void setup() {
+
+	Serial.begin();
+
+	Particle.variable("analogvalue", &analogvalue, INT);
+}
+
+
+void loop() {
+
+	analogvalue = analogRead(photosensor);
+
+    String stringvalue = String(analogvalue);
+
+	Serial.printlnf("%d", analogvalue);
+	
+	Particle.publish("light", stringvalue, PRIVATE);
+
+	delay(30000);
+}
